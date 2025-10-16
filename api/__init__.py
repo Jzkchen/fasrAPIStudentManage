@@ -20,4 +20,4 @@ app.add_middleware(
     allow_headers=["*"],  # 允许携带的头，比如authorization，content-type
 )
 
-from api import adminApi, exceptionHandler,courseApi
+from api import adminApi, exceptionHandler,courseApi,studentApi

@@ -11,9 +11,13 @@ class AccountLogin(BaseModel):
     password: str
     role: str
 
-class AccountLoginResponseModel(BaseModel):
+class AccountLoginResponseModel:
     id: int
     username: str
     role: str
     name:str
     token: str
+
+class AccountRegister(BaseModel):
+    username: str
+    password: str
