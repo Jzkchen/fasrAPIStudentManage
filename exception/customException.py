@@ -31,3 +31,7 @@ class CourseNotExistException(Exception):
 class UserExistException(Exception):
     def __init__(self, message:str):
         super().__init__(message)
+
+class FileNotFoundException(Exception):
+    def __init__(self, message:str):
+        super().__init__(message)

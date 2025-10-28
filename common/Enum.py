@@ -7,5 +7,5 @@ from enum import Enum
 
 
 class RoleEnum(str,Enum):
-    ADMIN = "管理员"
-    STUDENT = "学生"
+    ADMIN = "ADMIN"
+    STUDENT = "STUDENT"

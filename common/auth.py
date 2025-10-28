@@ -11,7 +11,7 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from passlib.context import CryptContext
 from sqlalchemy.util import deprecated
 
-from common.constant import TOKEN_EXPIRE_1_DAY,ZERO
+from common.constant import TOKEN_EXPIRE_1_DAY, ZERO
 from exception.customException import TokenException, ServiceErrorException
 
 
@@ -47,9 +47,9 @@ class AuthHandler:
         :return:
         """
         payload = {
-            "exp": datetime.utcnow()+timedelta(days=TOKEN_EXPIRE_1_DAY,minutes=ZERO,seconds=ZERO), # 过期时间
-            "iat": datetime.utcnow(),# 签发时间
-            "sub": user_name # 主题
+            "exp": datetime.utcnow() + timedelta(days=TOKEN_EXPIRE_1_DAY, minutes=ZERO, seconds=ZERO),  # 过期时间
+            "iat": datetime.utcnow(),  # 签发时间
+            "sub": user_name  # 主题
         }
         return jwt.encode(
             payload,
@@ -66,9 +66,8 @@ class AuthHandler:
         except jwt.InvalidTokenError:
             raise ServiceErrorException("系统错误，请联系管理人员")
 
-    def auth_required(self, auth:HTTPAuthorizationCredentials=Security(security)):
+    def auth_required(self, auth: HTTPAuthorizationCredentials = Security(security)):
         return self.decode_token(auth.credentials)
-
 
 
 auth_handler = AuthHandler()

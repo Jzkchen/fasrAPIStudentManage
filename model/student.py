@@ -4,8 +4,11 @@
 # @Time :2025/10/13 15:42
 # @Author :jzk
 from datetime import datetime
+from typing import Optional
 
+from pydantic import BaseModel, Field
 from sqlalchemy import Integer, String,DateTime
+from sqlalchemy.dialects.mysql import DATETIME
 
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -20,7 +23,26 @@ class Student(Base):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     gender: Mapped[int] = mapped_column(Integer, nullable=False)
     phone: Mapped[int] = mapped_column(Integer, nullable=True)
-    birthday: Mapped[datetime] = mapped_column(DateTime, nullable=False)
+    birthday: Mapped[datetime] = mapped_column(DATETIME, nullable=True)
     avatar: Mapped[str] = mapped_column(String(255), nullable=True)
     role: Mapped[str] = mapped_column(String(255), nullable=False)
 
+class StudentBase(BaseModel):
+    username: str
+    password: str=Field(..., min_length=1)
+    name: Optional[str]= None
+    role: Optional[str]= None
+
+
+class StudentQuery(BaseModel):
+    name: str | None = None
+    username: str | None = None
+
+class StudentCreate(StudentBase):
+    phone: Optional[int]= None
+    gender: Optional[int]= None
+    birthday: Optional[datetime]= None
+    avatar: Optional[int]= None
+
+class StudentUpdate(StudentCreate):
+    id: int

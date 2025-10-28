@@ -11,7 +11,7 @@ from exception.customException import (
     UserNotFoundException,
     PasswordNotMatchException,
     TokenException,
-    ServiceErrorException, CourseExistingException, CourseNotExistException, UserExistException
+    ServiceErrorException, CourseExistingException, CourseNotExistException, UserExistException, FileNotFoundException
 )
 from api import app
 
@@ -47,5 +47,10 @@ async def course_not_exist_exception_handler(request:Request, exc: CourseNotExis
 
 @app.exception_handler(UserExistException)
 async def course_not_exist_exception_handler(request:Request, exc: UserExistException):
+    result=Result.error(code='404',msg=exc.message)
+    return JSONResponse(status_code=404,content=jsonable_encoder(result))
+
+@app.exception_handler(FileNotFoundException)
+async def file_not_found_exception_handler(request:Request, exc: FileNotFoundException):
     result=Result.error(code='404',msg=exc.message)
     return JSONResponse(status_code=404,content=jsonable_encoder(result))
